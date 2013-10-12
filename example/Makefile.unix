@@ -1,0 +1,9 @@
+all:
+	g++ -std=c++0x -fpic -W -Wall -Werror -c example_module.cpp
+	g++ -std=c++0x -shared -W -Wall -Werror -oexample_module.so example_module.o
+	g++ -std=c++0x -W -Wall -Werror -oexample -ldl example_main.cpp
+
+clean:
+	rm *.o
+	rm *.so
+	rm example

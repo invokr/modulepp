@@ -18,6 +18,9 @@
 namespace modulepp {    
     /** shared library implementation on unix systems */
     class sharedLibraryUnix {
+        private:
+            /** non-copyable */
+            sharedLibraryUnix(const sharedLibraryUnix&);
         protected:
             /** Path to the library. */
             std::string path;
@@ -34,6 +37,9 @@ namespace modulepp {
             
             /** constructor */
             sharedLibraryUnix() : path(""), handle(NULL) {}
+            
+            /** destructor */
+            virtual ~sharedLibraryUnix() {}
             
             /** load library from given path */
             void load(const std::string& path, int flags = 0) {
@@ -70,7 +76,8 @@ namespace modulepp {
             }
             
             /** check if library is loaded */
-            const bool isLoaded() {
+            bool isLoaded() {
+                
                 return (handle != NULL);
             }
             

@@ -25,15 +25,29 @@ namespace modulepp {
     /** base template for different class creators */
     template <typename B> 
     class factoryCreator {
+        private:
+            /** noncopyable */
+            factoryCreator(const factoryCreator&);
         public:            
+            /** constructor */
+            factoryCreator() {}
+            /** destructor */
+            virtual ~factoryCreator() {}
             /** to be overloaded */
-            virtual B* create() const = 0; 
+            virtual B* create() const = 0;
     };
     
     /** basic creator requiring you to manage the object lifetime */
     template <typename B, typename C> 
     class factoryCreatorBasic : public factoryCreator<B> {
+        private:
+            /** noncopyable */
+            factoryCreatorBasic(const factoryCreatorBasic&);
         public:
+            /** constructor */
+            factoryCreatorBasic() {}
+            /** destructor */
+            virtual ~factoryCreatorBasic() {}
             /** returns pointer to newly created object */
             B* create() const {
                 return new C;
@@ -48,9 +62,15 @@ namespace modulepp {
             typedef std::set<B*> ObjectSet;
             /** Set of objects created / to be deleted. */
             mutable ObjectSet deleteSet;
+            
+            /** noncopyable */
+            factoryCreatorAdvance(const factoryCreatorAdvance&);
         public:
+            /** constructor */
+            factoryCreatorAdvance() : ObjectSet(), deleteSet() {}
+            
             /** destructor, deletes all created objects */
-            ~factoryCreatorAdvance() {
+            virtual ~factoryCreatorAdvance() {
                 for (typename ObjectSet::iterator it = deleteSet.begin();
                     it != deleteSet.end(); ++it) {
                     delete *it;
@@ -67,7 +87,14 @@ namespace modulepp {
     
     /** factory base class */
     class factoryBase {
+        private:
+            /** non-copyable */
+            factoryBase(const factoryBase&);
         public:
+            /** constructor */
+            factoryBase() {}
+            /** destructor */
+            virtual ~factoryBase() {}
             /** returns own type name */
             virtual const char* typeName() const = 0;
     };

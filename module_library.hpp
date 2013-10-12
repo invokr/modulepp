@@ -44,7 +44,7 @@ namespace modulepp {
     class sharedLibraryBase : public impl {
         public:
             /** check if symbol exists. */
-            virtual const bool hasSymbol(const std::string& name) {
+            virtual bool hasSymbol(const std::string& name) {
                 return (this->findSymbol(name) != NULL);
             }
             
@@ -52,6 +52,19 @@ namespace modulepp {
             virtual const std::string& getPath() const {
                 return this->path;
             }
+            
+            /** empty constructor */
+            sharedLibraryBase() {
+                
+            }
+            
+            /** nessecary to call parent destructor */
+            virtual ~sharedLibraryBase() {
+                
+            }
+        private:
+            /** non-copyable */
+            sharedLibraryBase(const sharedLibraryBase&);
     };
     
     /** type definition for the system specific shared library implementation. */
@@ -236,7 +249,7 @@ namespace modulepp {
             }
             
             /** returns whether a specific can be created. */
-            const bool hasClass(const std::string& className) {
+            bool hasClass(const std::string& className) {
                 return (getCreator(className) != NULL);
             }
 
@@ -251,7 +264,7 @@ namespace modulepp {
             }
 
             /** returns whether library is loaded or not. */
-            const bool isLibraryLoaded(const std::string& path) {
+            bool isLibraryLoaded(const std::string& path) {
                  return (getFactory(path) != NULL);
             }
 

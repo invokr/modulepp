@@ -1,8 +1,10 @@
-#include "../include/module_header.hpp"
+#include "../module_header.hpp"
 #include "module_base.hpp"
 
 class module_ext : public module_base {
     public:
+        module_ext() {}
+        virtual ~module_ext() {}
         virtual int getInt();
 };
 

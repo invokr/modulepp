@@ -37,6 +37,9 @@
 #if defined(__LINUX__) || defined(__APPLE__) || defined(hpux) || defined(_hpux) || defined(__GNUC__)
     #include "module_implementation_unix.hpp"
     #define SHARED_LIBRARY_IMPLEMENTATION shared_library_unix
+#elif defined(_WIN32)
+    #include "module_implementation_win32.hpp"
+    #define SHARED_LIBRARY_IMPLEMENTATION shared_library_win32
 #else
     static_assert( false, "No viable shared library implementation found." );
 #endif
